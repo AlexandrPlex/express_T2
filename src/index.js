@@ -3,13 +3,24 @@ import express_session from 'express-session';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bodyParser from 'body-parser'; 
+import MySQLStore from 'express-mysql-session';
+
+const options = {
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: 'usbw',
+  database: 'test',
+};
+
+const sessionStore = new MySQLStore(options);
 
 
 const app = express();
 app.use( bodyParser.json() );
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express_session({secret: 'dafa'}));
+app.use(express_session({store: sessionStore, secret: 'dafa'}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -30,7 +41,7 @@ passport.deserializeUser(function(user, done) {
 
 function authenticationMiddleware () {
     return function (req, res, next) {
-        if (req.isAuthenticated() && req.user.role === req.path) {
+        if (req.isAuthenticated()) {
             return next()
         }
         res.redirect('/login')
@@ -55,7 +66,6 @@ app.post('/login',
   });
 
 app.get('/protected', authenticationMiddleware(), (req, res) =>{
-	 console.log(req.user);
     res.sendFile(__dirname+'/page/protectedPage.html');
 });
 
