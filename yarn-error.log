@@ -1,0 +1,55 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add [babel-node]
+
+PATH: 
+  C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Sennheiser\SoftphoneSDK\;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files (x86)\GitExtensions\;C:\Program Files\MongoDB\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\AProkopev.BELL-MAIN\AppData\Local\Microsoft\WindowsApps;C:\Users\AProkopev.BELL-MAIN\AppData\Roaming\npm;C:\Program Files\MongoDB\bin;C:\Users\AProkopev.BELL-MAIN\AppData\Local\GitHubDesktop\bin;C:\Users\AProkopev.BELL-MAIN\AppData\Local\Yarn\bin;C:\Program Files\Heroku\bin
+
+Yarn version: 
+  1.7.0
+
+Node version: 
+  8.11.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/[babel-node]: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65656:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:134675:22)
+      at emitTwo (events.js:126:13)
+      at Request.emit (events.js:214:7)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:135658:10)
+      at emitOne (events.js:116:13)
+      at Request.emit (events.js:211:7)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:135578:12)
+      at Object.onceWrapper (events.js:313:30)
+      at emitNone (events.js:111:20)
+
+npm manifest: 
+  {
+    "name": "express-g-t",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+      "start": "nodemon babel-node ./server.js --exec "
+    },
+    "dependencies": {
+      "cookie-parser": "~1.4.3",
+      "debug": "~2.6.9",
+      "express": "~4.16.0",
+      "http-errors": "~1.6.2",
+      "morgan": "~1.9.0",
+      "node-babel": "^0.1.2",
+      "nodemon": "^1.17.5",
+      "passport": "^0.4.0",
+      "passport-local": "^1.0.0",
+      "pug": "2.0.0-beta11"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
