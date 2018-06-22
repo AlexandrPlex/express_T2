@@ -6,6 +6,8 @@ import bodyParser from 'body-parser';
 import MySQLStore from 'express-mysql-session';
 import mysql from 'mysql';
 
+import protectedPage from './page/protectedPage';
+
 const options = {
   host: 'localhost',
   port: 3306,
@@ -26,6 +28,7 @@ app.use(express_session({store: sessionStore, secret: 'dafa'}));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy('local',
     function(username, password, done) {
     	console.log()
@@ -74,12 +77,15 @@ app.post('/login',
     res.redirect('/protected');
   });
 
-app.get('/protected', authenticationMiddleware(), (req, res) =>{
-    res.sendFile(__dirname+'/page/protectedPage.html');
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/login');
 });
 
-
-
+app.get('/protected', authenticationMiddleware(), (req, res) =>{
+    // res.sendFile(__dirname+'/page/protectedPage.html');
+    res.send(protectedPage(req.user.name, req.user.role));
+});
 
 const server = app.listen(8080, function() {
     console.log(`Server is up and running on port 8080`);
