@@ -4,6 +4,7 @@ import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import bodyParser from 'body-parser'; 
 import MySQLStore from 'express-mysql-session';
+import mysql from 'mysql';
 
 const options = {
   host: 'localhost',
@@ -13,6 +14,7 @@ const options = {
   database: 'test',
 };
 
+const connection = mysql.createConnection(options);
 const sessionStore = new MySQLStore(options);
 
 
@@ -26,8 +28,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy('local',
     function(username, password, done) {
-    	console.log(1);
-        return done(null, {name: username, role: '/protectede'});
+    	console.log()
+    	connection.query(` SELECT * FROM \`test\`.\`users\` WHERE \`username\` = '${username}' AND \`password\`='${password}' `, function (error, results, fields) {
+    	  if (error) throw error;
+    	  if(results.length){
+    	  	return done(null, {name: username, role: '/protectede'});
+    	  }else{
+        	return done(null, false);
+    	  }
+    	});
     }
 ));
 
